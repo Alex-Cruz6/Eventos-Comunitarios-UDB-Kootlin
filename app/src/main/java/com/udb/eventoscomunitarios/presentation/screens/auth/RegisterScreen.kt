@@ -3,24 +3,23 @@ package com.udb.eventoscomunitarios.presentation.screens.auth
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material.icons.filled.ArrowBack
 import com.udb.eventoscomunitarios.presentation.theme.EventosComunitariosUDBTheme
+import com.udb.eventoscomunitarios.presentation.theme.UDBBlue
+import com.udb.eventoscomunitarios.presentation.theme.UDBOrange
 
 @Composable
 fun RegisterScreen(
@@ -30,11 +29,9 @@ fun RegisterScreen(
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -43,211 +40,204 @@ fun RegisterScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
+        // Header con botón back
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Start
         ) {
-            IconButton(
-                onClick = onNavigateBack
-            ) {
+            IconButton(onClick = onNavigateBack) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Volver",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = UDBBlue
                 )
             }
         }
 
         // Logo UDB
-        Text(
-            text = "🎓",
-            fontSize = 64.sp,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        Text(
-            text = "Crear Cuenta",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        Text(
-            text = "Únete a la comunidad UDB",
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-            modifier = Modifier.padding(bottom = 32.dp)
-        )
-
-        // Name Field
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Nombre completo") },
-            leadingIcon = {
-                Icon(Icons.Default.Person, contentDescription = "Nombre")
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(12.dp)
-        )
-
-        // Email Field
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            leadingIcon = {
-                Icon(Icons.Default.Email, contentDescription = "Email")
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(12.dp)
-        )
-
-        // Phone Field
-        OutlinedTextField(
-            value = phone,
-            onValueChange = { phone = it },
-            label = { Text("Teléfono (opcional)") },
-            leadingIcon = {
-                Icon(Icons.Default.Phone, contentDescription = "Teléfono")
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(12.dp)
-        )
-
-        // Password Field
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Contraseña") },
-            leadingIcon = {
-                Icon(Icons.Default.Lock, contentDescription = "Contraseña")
-            },
-            trailingIcon = {
-                IconButton(
-                    onClick = { passwordVisible = !passwordVisible }
-                ) {
-                    Icon(
-                        imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        contentDescription = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
-                    )
-                }
-            },
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(12.dp)
-        )
-
-        // Confirm Password Field
-        OutlinedTextField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            label = { Text("Confirmar contraseña") },
-            leadingIcon = {
-                Icon(Icons.Default.Lock, contentDescription = "Confirmar contraseña")
-            },
-            trailingIcon = {
-                IconButton(
-                    onClick = { confirmPasswordVisible = !confirmPasswordVisible }
-                ) {
-                    Icon(
-                        imageVector = if (confirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        contentDescription = if (confirmPasswordVisible) "Ocultar contraseña" else "Mostrar contraseña"
-                    )
-                }
-            },
-            visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 24.dp),
-            shape = RoundedCornerShape(12.dp)
-        )
-
-        // Register Button
-        Button(
-            onClick = {
-                // TODO: Implementar registro real
-                onNavigateToDashboard()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            shape = RoundedCornerShape(12.dp)
+        Surface(
+            modifier = Modifier.size(80.dp),
+            shape = RoundedCornerShape(40.dp),
+            color = UDBBlue
         ) {
-            Text(
-                text = "Registrarse",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-
-        // Divider
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Divider(modifier = Modifier.weight(1f))
-            Text(
-                text = "o",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-            )
-            Divider(modifier = Modifier.weight(1f))
-        }
-
-        // Google Sign In Button
-        OutlinedButton(
-            onClick = {
-                // TODO: Implementar Google Sign In
-                onNavigateToDashboard()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
+            Box(contentAlignment = Alignment.Center) {
                 Text(
-                    text = "🔍",
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    text = "Registrarse con Google",
-                    fontSize = 16.sp
+                    text = "UDB",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
                 )
             }
         }
 
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Crear Cuenta",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Name Field
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = "Nombre completo",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                placeholder = { Text("Juan Pérez", color = Color.Gray) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = UDBBlue,
+                    unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f)
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Email Field
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = "Email",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                placeholder = { Text("tu@udb.edu.sv", color = Color.Gray) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = UDBBlue,
+                    unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f)
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Password Field
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = "Contraseña",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                placeholder = { Text("••••••••", color = Color.Gray) },
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                            contentDescription = if (passwordVisible) "Ocultar" else "Mostrar",
+                            tint = Color.Gray
+                        )
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = UDBBlue,
+                    unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f)
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Phone Field
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = "Teléfono",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = phone,
+                onValueChange = { phone = it },
+                placeholder = { Text("7xxx-xxxx", color = Color.Gray) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = UDBBlue,
+                    unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f)
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // Register Button
+        Button(
+            onClick = onNavigateToDashboard,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = UDBOrange),
+            shape = RoundedCornerShape(25.dp)
+        ) {
+            Text(
+                text = "Registrarse",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color.White
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         // Login Link
         Row(
-            modifier = Modifier.padding(top = 16.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "¿Ya tienes cuenta? ",
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                color = Color.Gray,
+                fontSize = 14.sp
             )
-            TextButton(
-                onClick = onNavigateToLogin
-            ) {
+            TextButton(onClick = onNavigateToLogin) {
                 Text(
                     text = "Inicia sesión",
+                    color = UDBBlue,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
             }
