@@ -19,12 +19,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.filled.ArrowBack
 import com.udb.eventoscomunitarios.presentation.theme.EventosComunitariosUDBTheme
 
 @Composable
 fun RegisterScreen(
     onNavigateToLogin: () -> Unit = {},
-    onNavigateToDashboard: () -> Unit = {}
+    onNavigateToDashboard: () -> Unit = {},
+    onNavigateBack: () -> Unit = {}
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -41,6 +43,21 @@ fun RegisterScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            IconButton(
+                onClick = onNavigateBack
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Volver",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+
         // Logo UDB
         Text(
             text = "🎓",
